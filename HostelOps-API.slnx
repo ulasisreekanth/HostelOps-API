@@ -1,7 +1,7 @@
 <Solution>
   <Project Path="HostelOps-API Integration Tests/HostelOps-API Integration Tests.csproj" />
+  <Project Path="HostelOps-API Services/HostelOps-API Services.csproj" />
   <Project Path="HostelOps-API Unit Tests/HostelOps-API Unit Tests.csproj" />
-  <Project Path="HostelOps-API.Services/HostelOps-API.Services.csproj" />
-  <Project Path="HostelOps-API.Utils/HostelOps-API.Utils.csproj" />
+  <Project Path="HostelOps-API Utils/HostelOps-API Utils.csproj" />
   <Project Path="HostelOps-API/HostelOps-API.csproj" />
 </Solution>
