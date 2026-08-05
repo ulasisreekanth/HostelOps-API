@@ -1,0 +1,139 @@
+erDiagram
+    Plans {
+        int plan_id PK
+        varchar name
+        text description
+        decimal price
+        varchar billing_cycle
+        int max_hostels
+        int max_users
+        int max_storage_gb
+        bit is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    Tenants {
+        int tenant_id PK
+        varchar name
+        varchar slug UK
+        varchar email UK
+        int plan_id FK
+        varchar phone
+        text address
+        varchar logo_url
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    TenantSubscriptions {
+        int subscription_id PK
+        int tenant_id FK
+        int plan_id FK
+        datetime start_date
+        datetime end_date
+        varchar status
+        decimal amount
+        bit auto_renew
+        datetime created_at
+        datetime updated_at
+    }
+
+    TenantDatabases {
+        int database_id PK
+        int tenant_id FK
+        varchar database_name UK
+        text connection_string
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    Users {
+        int user_id PK
+        int tenant_id FK "nullable"
+        varchar full_name
+        varchar email
+        varchar phone
+        varchar password_hash
+        varchar status
+        bit email_verified
+        datetime last_login
+        datetime created_at
+        datetime updated_at
+    }
+
+    Roles {
+        int role_id PK
+        int tenant_id FK "nullable"
+        varchar name
+        text description
+        bit is_system_role
+        datetime created_at
+        datetime updated_at
+    }
+
+    UserRoles {
+        int user_role_id PK
+        int user_id FK
+        int role_id FK
+        datetime created_at
+    }
+
+    Permissions {
+        int permission_id PK
+        varchar name UK
+        text description
+        varchar module
+        datetime created_at
+    }
+
+    RolePermissions {
+        int role_permission_id PK
+        int role_id FK
+        int permission_id FK
+    }
+
+    PlatformSettings {
+        int setting_id PK
+        varchar setting_key UK
+        text setting_value
+        text description
+        datetime created_at
+        datetime updated_at
+    }
+
+    PlatformAuditLogs {
+        bigint audit_log_id PK
+        int user_id FK "nullable"
+        varchar action
+        varchar entity
+        int entity_id
+        text details
+        varchar ip_address
+        datetime created_at
+    }
+
+    PlatformNotifications {
+        bigint notification_id PK
+        int user_id FK "nullable"
+        varchar title
+        text message
+        varchar type
+        bit is_read
+        datetime created_at
+    }
+
+    Plans ||--o{ Tenants : "subscribed by"
+    Plans ||--o{ TenantSubscriptions : "defines"
+    Tenants ||--o{ TenantSubscriptions : "has"
+    Tenants ||--|| TenantDatabases : "provisions"
+    Tenants ||--o{ Users : "employs"
+    Tenants ||--o{ Roles : "defines"
+    Users ||--o{ UserRoles : "assigned"
+    Roles ||--o{ UserRoles : "assigned to"
+    Roles ||--o{ RolePermissions : "grants"
+    Permissions ||--o{ RolePermissions : "granted via"
+    Users ||--o{ PlatformAuditLogs : "generates"
+    Users ||--o{ PlatformNotifications : "receives"
