@@ -1,0 +1,377 @@
+erDiagram
+    Hostels {
+        int hostel_id PK
+        varchar name
+        varchar code UK
+        text address
+        varchar city
+        varchar state
+        varchar pincode
+        varchar country
+        varchar phone
+        varchar email
+        varchar logo_url
+        varchar timezone
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    Buildings {
+        int building_id PK
+        int hostel_id FK
+        varchar name
+        text description
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    Floors {
+        int floor_id PK
+        int building_id FK
+        varchar name
+        int floor_number
+        text description
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    Rooms {
+        int room_id PK
+        int floor_id FK
+        varchar room_number
+        varchar name
+        text description
+        decimal area_sqft
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    Beds {
+        int bed_id PK
+        int room_id FK
+        varchar bed_number
+        varchar name
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    RoomTypes {
+        int room_type_id PK
+        varchar name
+        text description
+        int occupants
+        bit is_active
+        datetime created_at
+    }
+
+    SharingTypes {
+        int sharing_type_id PK
+        varchar name
+        text description
+        int max_occupants
+        bit is_active
+        datetime created_at
+    }
+
+    BedTypes {
+        int bed_type_id PK
+        varchar name
+        text description
+        bit is_active
+        datetime created_at
+    }
+
+    Residents {
+        int resident_id PK
+        varchar full_name
+        varchar email UK
+        varchar phone
+        date date_of_birth
+        varchar gender
+        text address
+        varchar city
+        varchar state
+        varchar pincode
+        varchar country
+        varchar id_proof_type
+        varchar id_proof_number
+        varchar profile_image_url
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    Inquiries {
+        int inquiry_id PK
+        varchar full_name
+        varchar phone
+        varchar email
+        date preferred_check_in
+        date preferred_check_out
+        int sharing_type_id FK
+        int room_type_id FK
+        text message
+        varchar source
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    Reservations {
+        int reservation_id PK
+        int resident_id FK "nullable"
+        int inquiry_id FK "nullable"
+        date reserved_from
+        date reserved_to
+        int room_type_id FK
+        int sharing_type_id FK
+        varchar status
+        decimal advance_amount
+        datetime created_at
+        datetime updated_at
+    }
+
+    StayAllocations {
+        int allocation_id PK
+        int reservation_id FK "nullable"
+        int resident_id FK
+        int bed_id FK
+        date check_in_date
+        date check_out_date "nullable"
+        int rent_plan_id FK
+        varchar status
+        decimal security_deposit
+        datetime created_at
+        datetime updated_at
+    }
+
+    ResidentDocuments {
+        int document_id PK
+        int resident_id FK
+        varchar document_type
+        varchar document_number
+        varchar file_url
+        datetime uploaded_at
+        bit is_verified
+        int verified_by "nullable"
+        datetime verified_at
+    }
+
+    RentPlans {
+        int rent_plan_id PK
+        varchar name
+        text description
+        decimal rent_amount
+        varchar billing_cycle
+        decimal security_deposit
+        bit is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    ChargeTypes {
+        int charge_type_id PK
+        varchar name
+        text description
+        varchar category
+        bit is_recurring
+        bit is_mandatory
+        bit is_active
+        datetime created_at
+    }
+
+    Invoices {
+        bigint invoice_id PK
+        int resident_id FK
+        varchar invoice_number UK
+        date invoice_date
+        date due_date
+        decimal total_amount
+        decimal paid_amount
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    InvoiceItems {
+        bigint invoice_item_id PK
+        bigint invoice_id FK
+        int charge_type_id FK
+        varchar description
+        decimal quantity
+        decimal unit_price
+        decimal amount
+    }
+
+    Payments {
+        bigint payment_id PK
+        bigint invoice_id FK
+        date payment_date
+        decimal amount
+        int payment_method_id FK
+        varchar transaction_id
+        varchar status
+        text notes
+        datetime created_at
+    }
+
+    PaymentMethods {
+        int payment_method_id PK
+        varchar name
+        varchar type
+        text details
+        bit is_active
+        datetime created_at
+    }
+
+    Refunds {
+        bigint refund_id PK
+        bigint payment_id FK
+        date refund_date
+        decimal amount
+        text reason
+        varchar status
+        datetime created_at
+    }
+
+    ExpenseCategories {
+        int expense_category_id PK
+        varchar name
+        text description
+        bit is_active
+        datetime created_at
+    }
+
+    Vendors {
+        int vendor_id PK
+        varchar name
+        varchar contact_person
+        varchar phone
+        varchar email
+        text address
+        varchar city
+        varchar state
+        varchar pincode
+        varchar gst_number
+        bit is_active
+        datetime created_at
+    }
+
+    Expenses {
+        bigint expense_id PK
+        int expense_category_id FK "nullable"
+        int vendor_id FK "nullable"
+        date expense_date
+        text description
+        decimal amount
+        int payment_method_id
+        varchar invoice_number
+        varchar receipt_url
+        int created_by
+        datetime created_at
+    }
+
+    StaffRoles {
+        int staff_role_id PK
+        varchar name
+        text description
+        bit is_active
+        datetime created_at
+    }
+
+    Staff {
+        int staff_id PK
+        int staff_role_id FK
+        varchar full_name
+        varchar phone
+        varchar email
+        date date_of_birth
+        varchar gender
+        text address
+        decimal salary
+        date join_date
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+
+    Complaints {
+        int complaint_id PK
+        int resident_id FK "nullable"
+        int staff_id FK "nullable"
+        varchar subject
+        text description
+        varchar priority
+        varchar status
+        datetime created_at
+        datetime resolved_at "nullable"
+    }
+
+    Notifications {
+        bigint notification_id PK
+        int staff_id FK "nullable"
+        varchar title
+        text message
+        varchar type
+        bit is_read
+        datetime created_at
+    }
+
+    Settings {
+        int setting_id PK
+        varchar setting_key UK
+        text setting_value
+        text description
+        datetime created_at
+        datetime updated_at
+    }
+
+    AuditLogs {
+        bigint audit_log_id PK
+        int user_id
+        varchar action
+        varchar entity
+        int entity_id "nullable"
+        text details
+        varchar ip_address
+        datetime created_at
+    }
+
+    Hostels ||--o{ Buildings : "has"
+    Buildings ||--o{ Floors : "has"
+    Floors ||--o{ Rooms : "has"
+    Rooms ||--o{ Beds : "has"
+
+    RoomTypes ||--o{ Reservations : "type of"
+    RoomTypes ||--o{ Inquiries : "type of"
+    SharingTypes ||--o{ Reservations : "type of"
+    SharingTypes ||--o{ Inquiries : "type of"
+    BedTypes ||--o{ Beds : "type of"
+
+    Residents ||--o{ Reservations : "makes"
+    Inquiries ||--o{ Reservations : "converts to"
+    Reservations ||--o{ StayAllocations : "results in"
+    Residents ||--o{ StayAllocations : "stays via"
+    Beds ||--o{ StayAllocations : "assigned to"
+    RentPlans ||--o{ StayAllocations : "billed under"
+
+    Residents ||--o{ ResidentDocuments : "uploads"
+    Residents ||--o{ Invoices : "billed"
+    Invoices ||--o{ InvoiceItems : "contains"
+    ChargeTypes ||--o{ InvoiceItems : "charged as"
+    Invoices ||--o{ Payments : "settled by"
+    PaymentMethods ||--o{ Payments : "paid via"
+    Payments ||--o{ Refunds : "refunded"
+
+    ExpenseCategories ||--o{ Expenses : "categorizes"
+    Vendors ||--o{ Expenses : "billed by"
+
+    StaffRoles ||--o{ Staff : "assigned"
+    Residents ||--o{ Complaints : "raises"
+    Staff ||--o{ Complaints : "handles"
+    Staff ||--o{ Notifications : "receives"
