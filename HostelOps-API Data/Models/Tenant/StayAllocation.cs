@@ -1,56 +1,52 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class StayAllocation
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int AllocationId { get; set; }
+    [Table("StayAllocations")]
+    public class StayAllocation
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AllocationId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Reservations.ReservationId
-    // Nullable
-    // =========================
-    public int? ReservationId { get; set; }
+        public int? ReservationId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Residents.ResidentId
-    // =========================
-    public int ResidentId { get; set; }
+        [Required]
+        public int ResidentId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Beds.BedId
-    // =========================
-    public int BedId { get; set; }
+        [Required]
+        public int BedId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers RentPlans.RentPlanId
-    // =========================
-    public int RentPlanId { get; set; }
+        [Required]
+        public DateOnly CheckInDate { get; set; }
 
-    public DateOnly CheckInDate { get; set; }
+        public DateOnly? CheckOutDate { get; set; }
 
-    public DateOnly? CheckOutDate { get; set; }
+        [Required]
+        public int RentPlanId { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        public StayAllocationStatus Status { get; set; }
 
-    public decimal SecurityDeposit { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal SecurityDeposit { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
-    // Navigation Properties
+        [ForeignKey("ReservationId")]
+        public Reservation? Reservation { get; set; }
 
-    public Reservation? Reservation { get; set; }
+        [ForeignKey("ResidentId")]
+        public Resident Resident { get; set; } = null!;
 
-    public Resident Resident { get; set; } = null!;
+        [ForeignKey("BedId")]
+        public Bed Bed { get; set; } = null!;
 
-    public Bed Bed { get; set; } = null!;
-
-    public RentPlan RentPlan { get; set; } = null!;
+        [ForeignKey("RentPlanId")]
+        public RentPlan RentPlan { get; set; } = null!;
+    }
 }

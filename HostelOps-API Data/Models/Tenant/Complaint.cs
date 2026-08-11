@@ -1,41 +1,54 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Complaint
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int ComplaintId { get; set; }
+    [Table("Complaints")]
+    public class Complaint
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ComplaintId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Residents.ResidentId
-    // Nullable
-    // =========================
-    public int? ResidentId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Staff.StaffId
-    // Nullable
-    // =========================
-    public int? StaffId { get; set; }
+        public int? ResidentId { get; set; }
 
-    public string Subject { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
+        public int? StaffId { get; set; }
 
-    public string Priority { get; set; } = string.Empty;
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        [StringLength(200)]
+        public string Subject { get; set; } = string.Empty;
 
-    public DateTime CreatedAt { get; set; }
 
-    public DateTime? ResolvedAt { get; set; }
+        [Required]
+        [StringLength(1000)]
+        public string Description { get; set; } = string.Empty;
 
-    // Navigation Property
-    public Resident? Resident { get; set; }
 
-    // Navigation Property
-    public Staff? Staff { get; set; }
+        [Required]
+        public ComplaintPriority Priority { get; set; }
+
+
+        [Required]
+        public ComplaintStatus Status { get; set; }
+
+
+        public DateTime CreatedAt { get; set; }
+
+
+        public DateTime? ResolvedAt { get; set; }
+
+
+
+        [ForeignKey("ResidentId")]
+        public Resident? Resident { get; set; }
+
+
+
+        [ForeignKey("StaffId")]
+        public Staff? Staff { get; set; }
+    }
 }

@@ -1,28 +1,38 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Building
+namespace HostelOps_API.Models
 {
-    // Primary Key (PK)
-    public int BuildingId { get; set; }
+    [Table("Buildings")]
+    public class Building
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int BuildingId { get; set; }
 
-    // Foreign Key (FK)
-    // Refers Hostel.HostelId
-    public int HostelId { get; set; }
+        [Required]
+        public int HostelId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Description { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        public BuildingStatus Status { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+        [Required]
+        public DateTime UpdatedAt { get; set; }
 
-    // Navigation Property
-    // Building belongs to one Hostel
-    public Hostel Hostel { get; set; } = null!;
+        [ForeignKey(nameof(HostelId))]
+        public virtual Hostel Hostel { get; set; } = null!;
 
-    // One Building has many Floors
-    public ICollection<Floor> Floors { get; set; } = new List<Floor>();
+        public virtual ICollection<Floor> Floors { get; set; } = new List<Floor>();
+    }
 }

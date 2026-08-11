@@ -1,39 +1,47 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Invoice
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public long InvoiceId { get; set; }
+    [Table("Invoices")]
+    public class Invoice
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long InvoiceId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Residents.ResidentId
-    // =========================
-    public int ResidentId { get; set; }
+        [Required]
+        public int ResidentId { get; set; }
 
-    public string InvoiceNumber { get; set; } = string.Empty;
+        [Required]
+        [StringLength(50)]
+        public string InvoiceNumber { get; set; } = string.Empty;
 
-    public DateOnly InvoiceDate { get; set; }
+        [Required]
+        public DateOnly InvoiceDate { get; set; }
 
-    public DateOnly DueDate { get; set; }
+        [Required]
+        public DateOnly DueDate { get; set; }
 
-    public decimal TotalAmount { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal TotalAmount { get; set; }
 
-    public decimal PaidAmount { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal PaidAmount { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        public InvoiceStatus Status { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
-    // Navigation Properties
+        [ForeignKey("ResidentId")]
+        public Resident Resident { get; set; } = null!;
 
-    public Resident Resident { get; set; } = null!;
+        public ICollection<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
 
-    public ICollection<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
-
-    public ICollection<Payment> Payments { get; set; } = new List<Payment>();
+        public ICollection<Payment> Payments { get; set; } = new List<Payment>();
+    }
 }

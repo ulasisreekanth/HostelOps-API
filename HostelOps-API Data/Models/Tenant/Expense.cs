@@ -1,46 +1,52 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Expense
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public long ExpenseId { get; set; }
+    [Table("Expenses")]
+    public class Expense
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long ExpenseId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers ExpenseCategories.ExpenseCategoryId
-    // Nullable
-    // =========================
-    public int? ExpenseCategoryId { get; set; }
+        public int? ExpenseCategoryId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Vendors.VendorId
-    // Nullable
-    // =========================
-    public int? VendorId { get; set; }
+        public int? VendorId { get; set; }
 
-    public DateOnly ExpenseDate { get; set; }
+        [Required]
+        public DateOnly ExpenseDate { get; set; }
 
-    public string Description { get; set; } = string.Empty;
+        [Required]
+        [StringLength(500)]
+        public string Description { get; set; } = string.Empty;
 
-    public decimal Amount { get; set; }
+        [Required]
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Amount { get; set; }
 
-    // ERD contains payment_method_id but no FK relation is defined
-    public int PaymentMethodId { get; set; }
+        [Required]
+        public int PaymentMethodId { get; set; }
 
-    public string InvoiceNumber { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? InvoiceNumber { get; set; }
 
-    public string ReceiptUrl { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? ReceiptUrl { get; set; }
 
-    public int CreatedBy { get; set; }
+        [Required]
+        public int CreatedBy { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    // Navigation Properties
+        [ForeignKey("ExpenseCategoryId")]
+        public ExpenseCategory? ExpenseCategory { get; set; }
 
-    public ExpenseCategory? ExpenseCategory { get; set; }
+        [ForeignKey("VendorId")]
+        public Vendor? Vendor { get; set; }
 
-    public Vendor? Vendor { get; set; }
+        [ForeignKey("PaymentMethodId")]
+        public PaymentMethod PaymentMethod { get; set; } = null!;
+    }
 }

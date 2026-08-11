@@ -1,51 +1,77 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Resident
+namespace HostelOps_API.Models
 {
-    // Primary Key (PK)
-    public int ResidentId { get; set; }
+    [Table("Residents")]
+    public class Resident
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ResidentId { get; set; }
 
-    public string FullName { get; set; } = string.Empty;
+        [Required]
+        [StringLength(150)]
+        public string FullName { get; set; } = string.Empty;
 
-    public string Email { get; set; } = string.Empty;
+        [Required]
+        [EmailAddress]
+        [StringLength(150)]
+        public string Email { get; set; } = string.Empty;
 
-    public string Phone { get; set; } = string.Empty;
+        [Required]
+        [Phone]
+        [StringLength(20)]
+        public string Phone { get; set; } = string.Empty;
 
-    public DateOnly DateOfBirth { get; set; }
+        [Required]
+        public DateOnly DateOfBirth { get; set; }
 
-    public string Gender { get; set; } = string.Empty;
+        [Required]
+        public Gender Gender { get; set; }
 
-    public string Address { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Address { get; set; }
 
-    public string City { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? City { get; set; }
 
-    public string State { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? State { get; set; }
 
-    public string Pincode { get; set; } = string.Empty;
+        [StringLength(10)]
+        public string? Pincode { get; set; }
 
-    public string Country { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? Country { get; set; }
 
-    public string IdProofType { get; set; } = string.Empty;
+        [StringLength(50)]
+        public string? IdProofType { get; set; }
 
-    public string IdProofNumber { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? IdProofNumber { get; set; }
 
-    public string ProfileImageUrl { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? ProfileImageUrl { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        public ResidentStatus Status { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+        [Required]
+        public DateTime UpdatedAt { get; set; }
 
-    // Navigation Properties
+        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
-    public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public ICollection<StayAllocation> StayAllocations { get; set; } = new List<StayAllocation>();
 
-    public ICollection<StayAllocation> StayAllocations { get; set; } = new List<StayAllocation>();
+        public ICollection<ResidentDocument> ResidentDocuments { get; set; } = new List<ResidentDocument>();
 
-    public ICollection<ResidentDocument> ResidentDocuments { get; set; } = new List<ResidentDocument>();
+        public ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
 
-    public ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
-
-    public ICollection<Complaint> Complaints { get; set; } = new List<Complaint>();
+        public ICollection<Complaint> Complaints { get; set; } = new List<Complaint>();
+    }
 }

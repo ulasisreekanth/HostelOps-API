@@ -1,35 +1,38 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class InvoiceItem
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public long InvoiceItemId { get; set; }
+    [Table("InvoiceItems")]
+    public class InvoiceItem
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long InvoiceItemId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Invoices.InvoiceId
-    // =========================
-    public long InvoiceId { get; set; }
+        [Required]
+        public long InvoiceId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers ChargeTypes.ChargeTypeId
-    // =========================
-    public int ChargeTypeId { get; set; }
+        [Required]
+        public int ChargeTypeId { get; set; }
 
-    public string Description { get; set; } = string.Empty;
+        [Required]
+        [StringLength(200)]
+        public string Description { get; set; } = string.Empty;
 
-    public decimal Quantity { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Quantity { get; set; }
 
-    public decimal UnitPrice { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal UnitPrice { get; set; }
 
-    public decimal Amount { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Amount { get; set; }
 
-    // Navigation Properties
+        [ForeignKey("InvoiceId")]
+        public Invoice Invoice { get; set; } = null!;
 
-    public Invoice Invoice { get; set; } = null!;
-
-    public ChargeType ChargeType { get; set; } = null!;
+        [ForeignKey("ChargeTypeId")]
+        public ChargeType ChargeType { get; set; } = null!;
+    }
 }

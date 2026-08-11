@@ -1,23 +1,30 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class PaymentMethod
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int PaymentMethodId { get; set; }
+    [Table("PaymentMethods")]
+    public class PaymentMethod
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PaymentMethodId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-    public string Type { get; set; } = string.Empty;
+        [Required]
+        public PaymentMethodType Type { get; set; }
 
-    public string Details { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Details { get; set; }
 
-    public bool IsActive { get; set; }
+        public bool IsActive { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-    // Navigation Property
-
-    public ICollection<Payment> Payments { get; set; } = new List<Payment>();
+        public ICollection<Payment> Payments { get; set; } = new List<Payment>();
+    }
 }

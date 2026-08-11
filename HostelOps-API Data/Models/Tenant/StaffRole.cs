@@ -1,21 +1,29 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class StaffRole
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int StaffRoleId { get; set; }
+    [Table("StaffRoles")]
+    public class StaffRole
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int StaffRoleId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Description { get; set; }
 
-    public bool IsActive { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    // Navigation Property
-    // One Staff Role can have many Staff
-    public ICollection<Staff> StaffMembers { get; set; } = new List<Staff>();
+
+        public ICollection<Staff> Staffs { get; set; } = new List<Staff>();
+    }
 }

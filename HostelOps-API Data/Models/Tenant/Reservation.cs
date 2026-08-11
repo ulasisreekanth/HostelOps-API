@@ -1,59 +1,56 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Reservation
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int ReservationId { get; set; }
+    [Table("Reservations")]
+    public class Reservation
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ReservationId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Residents.ResidentId
-    // Nullable because reservation can be created from Inquiry
-    // =========================
-    public int? ResidentId { get; set; }
+        public int? ResidentId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Inquiries.InquiryId
-    // Nullable because existing resident can reserve directly
-    // =========================
-    public int? InquiryId { get; set; }
+        public int? InquiryId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers RoomTypes.RoomTypeId
-    // =========================
-    public int RoomTypeId { get; set; }
+        [Required]
+        public DateOnly ReservedFrom { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers SharingTypes.SharingTypeId
-    // =========================
-    public int SharingTypeId { get; set; }
+        [Required]
+        public DateOnly ReservedTo { get; set; }
 
-    public DateOnly ReservedFrom { get; set; }
+        [Required]
+        public int RoomTypeId { get; set; }
 
-    public DateOnly ReservedTo { get; set; }
+        [Required]
+        public int SharingTypeId { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        public ReservationStatus Status { get; set; }
 
-    public decimal AdvanceAmount { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal AdvanceAmount { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+        [Required]
+        public DateTime UpdatedAt { get; set; }
 
-    // Navigation Properties
+        [ForeignKey("ResidentId")]
+        public Resident? Resident { get; set; }
 
-    public Resident? Resident { get; set; }
+        [ForeignKey("InquiryId")]
+        public Inquiry? Inquiry { get; set; }
 
-    public Inquiry? Inquiry { get; set; }
+        [ForeignKey("RoomTypeId")]
+        public RoomType RoomType { get; set; } = null!;
 
-    public RoomType RoomType { get; set; } = null!;
+        [ForeignKey("SharingTypeId")]
+        public SharingType SharingType { get; set; } = null!;
 
-    public SharingType SharingType { get; set; } = null!;
-
-    public ICollection<StayAllocation> StayAllocations { get; set; } = new List<StayAllocation>();
+        public ICollection<StayAllocation> StayAllocations { get; set; } = new List<StayAllocation>();
+    }
 }

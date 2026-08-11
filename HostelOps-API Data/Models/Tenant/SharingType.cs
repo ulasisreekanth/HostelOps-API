@@ -1,23 +1,33 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class SharingType
+namespace HostelOps_API.Models
 {
-    // Primary Key (PK)
-    public int SharingTypeId { get; set; }
+    [Table("SharingTypes")]
+    public class SharingType
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int SharingTypeId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Description { get; set; }
 
-    public int MaxOccupants { get; set; }
+        [Required]
+        public int MaxOccupants { get; set; }
 
-    public bool IsActive { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    // Navigation Property
-    public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public virtual ICollection<Inquiry> Inquiries { get; set; } = new List<Inquiry>();
 
-    // Navigation Property
-    public ICollection<Inquiry> Inquiries { get; set; } = new List<Inquiry>();
+        public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+    }
 }

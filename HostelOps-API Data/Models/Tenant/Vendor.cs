@@ -1,35 +1,51 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Vendor
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int VendorId { get; set; }
+    [Table("Vendors")]
+    public class Vendor
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int VendorId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        [StringLength(150)]
+        public string Name { get; set; } = string.Empty;
 
-    public string ContactPerson { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? ContactPerson { get; set; }
 
-    public string Phone { get; set; } = string.Empty;
+        [Phone]
+        [StringLength(20)]
+        public string? Phone { get; set; }
 
-    public string Email { get; set; } = string.Empty;
+        [EmailAddress]
+        [StringLength(150)]
+        public string? Email { get; set; }
 
-    public string Address { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Address { get; set; }
 
-    public string City { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? City { get; set; }
 
-    public string State { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? State { get; set; }
 
-    public string Pincode { get; set; } = string.Empty;
+        [StringLength(10)]
+        public string? Pincode { get; set; }
 
-    public string GstNumber { get; set; } = string.Empty;
+        [StringLength(30)]
+        public string? GstNumber { get; set; }
 
-    public bool IsActive { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    // Navigation Property
-    // One Vendor can have many Expenses
-    public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
+        public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
+    }
 }

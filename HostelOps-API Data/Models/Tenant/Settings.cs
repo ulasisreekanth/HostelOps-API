@@ -1,19 +1,32 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Setting
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int SettingId { get; set; }
+    [Table("Settings")]
+    public class Setting
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int SettingId { get; set; }
 
-    public string SettingKey { get; set; } = string.Empty;
 
-    public string SettingValue { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string SettingKey { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public string SettingValue { get; set; } = string.Empty;
 
-    public DateTime UpdatedAt { get; set; }
+
+        [StringLength(500)]
+        public string? Description { get; set; }
+
+
+        public DateTime CreatedAt { get; set; }
+
+
+        public DateTime UpdatedAt { get; set; }
+    }
 }

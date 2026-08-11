@@ -1,34 +1,39 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Bed
+namespace HostelOps_API.Models
 {
-    // Primary Key (PK)
-    public int BedId { get; set; }
+    [Table("Beds")]
+    public class Bed
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int BedId { get; set; }
 
-    // Foreign Key (FK)
-    // Refers Room.RoomId
-    public int RoomId { get; set; }
+        [Required]
+        public int RoomId { get; set; }
 
-    // Foreign Key (FK)
-    // Refers BedType.BedTypeId
-    public int BedTypeId { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string BedNumber { get; set; } = string.Empty;
 
-    public string BedNumber { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        public BedStatus Status { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime UpdatedAt { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+        [ForeignKey(nameof(RoomId))]
+        public virtual Room Room { get; set; } = null!;
 
-    // Navigation Property
-    public Room Room { get; set; } = null!;
-
-    // Navigation Property
-    public BedType BedType { get; set; } = null!;
-
-    // One Bed can have many Stay Allocations
-    public ICollection<StayAllocation> StayAllocations { get; set; } = new List<StayAllocation>();
+        public virtual ICollection<StayAllocation> StayAllocations { get; set; } = new List<StayAllocation>();
+    }
 }

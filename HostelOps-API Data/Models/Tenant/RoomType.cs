@@ -1,25 +1,33 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class RoomType
+namespace HostelOps_API.Models
 {
-    // Primary Key (PK)
-    public int RoomTypeId { get; set; }
+    [Table("RoomTypes")]
+    public class RoomType
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int RoomTypeId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Description { get; set; }
 
-    public int Occupants { get; set; }
+        [Required]
+        public int Occupants { get; set; }
 
-    public bool IsActive { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    // Navigation Property
-    // One RoomType can have many Reservations
-    public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public virtual ICollection<Inquiry> Inquiries { get; set; } = new List<Inquiry>();
 
-    // Navigation Property
-    // One RoomType can have many Inquiries
-    public ICollection<Inquiry> Inquiries { get; set; } = new List<Inquiry>();
+        public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+    }
 }

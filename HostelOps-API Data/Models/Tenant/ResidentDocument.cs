@@ -1,33 +1,39 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class ResidentDocument
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int DocumentId { get; set; }
+    [Table("ResidentDocuments")]
+    public class ResidentDocument
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int DocumentId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Residents.ResidentId
-    // =========================
-    public int ResidentId { get; set; }
+        [Required]
+        public int ResidentId { get; set; }
 
-    public string DocumentType { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string DocumentType { get; set; } = string.Empty;
 
-    public string DocumentNumber { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string DocumentNumber { get; set; } = string.Empty;
 
-    public string FileUrl { get; set; } = string.Empty;
+        [Required]
+        [StringLength(500)]
+        public string FileUrl { get; set; } = string.Empty;
 
-    public DateTime UploadedAt { get; set; }
+        public DateTime UploadedAt { get; set; }
 
-    public bool IsVerified { get; set; }
+        public bool IsVerified { get; set; }
 
-    public int? VerifiedBy { get; set; }
+        public int? VerifiedBy { get; set; }
 
-    public DateTime? VerifiedAt { get; set; }
+        public DateTime? VerifiedAt { get; set; }
 
-    // Navigation Property
-
-    public Resident Resident { get; set; } = null!;
+        [ForeignKey("ResidentId")]
+        public Resident Resident { get; set; } = null!;
+    }
 }

@@ -1,27 +1,34 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class ChargeType
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int ChargeTypeId { get; set; }
+    [Table("ChargeTypes")]
+    public class ChargeType
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ChargeTypeId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Description { get; set; }
 
-    public string Category { get; set; } = string.Empty;
+        [Required]
+        public ChargeCategory Category { get; set; }
 
-    public bool IsRecurring { get; set; }
+        public bool IsRecurring { get; set; }
 
-    public bool IsMandatory { get; set; }
+        public bool IsMandatory { get; set; }
 
-    public bool IsActive { get; set; }
+        public bool IsActive { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-    // Navigation Property
-
-    public ICollection<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
+        public ICollection<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
+    }
 }

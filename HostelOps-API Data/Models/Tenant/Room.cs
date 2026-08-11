@@ -1,31 +1,45 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Room
+namespace HostelOps_API.Models
 {
-    // Primary Key (PK)
-    public int RoomId { get; set; }
+    [Table("Rooms")]
+    public class Room
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int RoomId { get; set; }
 
-    // Foreign Key (FK)
-    // Refers Floor.FloorId
-    public int FloorId { get; set; }
+        [Required]
+        public int FloorId { get; set; }
 
-    public string RoomNumber { get; set; } = string.Empty;
+        [Required]
+        [StringLength(20)]
+        public string RoomNumber { get; set; } = string.Empty;
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Description { get; set; }
 
-    public decimal AreaSqft { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal? AreaSqft { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        public RoomStatus Status { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+        [Required]
+        public DateTime UpdatedAt { get; set; }
 
-    // Navigation Property
-    public Floor Floor { get; set; } = null!;
+        [ForeignKey(nameof(FloorId))]
+        public virtual Floor Floor { get; set; } = null!;
 
-    // One Room has many Beds
-    public ICollection<Bed> Beds { get; set; } = new List<Bed>();
+        public virtual ICollection<Bed> Beds { get; set; } = new List<Bed>();
+    }
 }

@@ -1,29 +1,43 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Notification
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public long NotificationId { get; set; }
+    [Table("Notifications")]
+    public class Notification
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long NotificationId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Staff.StaffId
-    // Nullable
-    // =========================
-    public int? StaffId { get; set; }
 
-    public string Title { get; set; } = string.Empty;
+        public int? StaffId { get; set; }
 
-    public string Message { get; set; } = string.Empty;
 
-    public string Type { get; set; } = string.Empty;
+        [Required]
+        [StringLength(200)]
+        public string Title { get; set; } = string.Empty;
 
-    public bool IsRead { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        [StringLength(1000)]
+        public string Message { get; set; } = string.Empty;
 
-    // Navigation Property
-    public Staff? Staff { get; set; }
+
+        [Required]
+        public NotificationType Type { get; set; }
+
+
+        [Required]
+        public bool IsRead { get; set; }
+
+
+        public DateTime CreatedAt { get; set; }
+
+
+
+        [ForeignKey("StaffId")]
+        public Staff? Staff { get; set; }
+    }
 }

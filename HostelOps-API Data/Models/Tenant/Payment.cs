@@ -1,41 +1,45 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Payment
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public long PaymentId { get; set; }
+    [Table("Payments")]
+    public class Payment
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long PaymentId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Invoices.InvoiceId
-    // =========================
-    public long InvoiceId { get; set; }
+        [Required]
+        public long InvoiceId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers PaymentMethods.PaymentMethodId
-    // =========================
-    public int PaymentMethodId { get; set; }
+        [Required]
+        public DateOnly PaymentDate { get; set; }
 
-    public DateOnly PaymentDate { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Amount { get; set; }
 
-    public decimal Amount { get; set; }
+        [Required]
+        public int PaymentMethodId { get; set; }
 
-    public string TransactionId { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string? TransactionId { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        public PaymentStatus Status { get; set; }
 
-    public string Notes { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Notes { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-    // Navigation Properties
+        [ForeignKey("InvoiceId")]
+        public Invoice Invoice { get; set; } = null!;
 
-    public Invoice Invoice { get; set; } = null!;
+        [ForeignKey("PaymentMethodId")]
+        public PaymentMethod PaymentMethod { get; set; } = null!;
 
-    public PaymentMethod PaymentMethod { get; set; } = null!;
-
-    public ICollection<Refund> Refunds { get; set; } = new List<Refund>();
+        public ICollection<Refund> Refunds { get; set; } = new List<Refund>();
+    }
 }

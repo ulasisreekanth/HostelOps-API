@@ -1,21 +1,28 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class ExpenseCategory
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public int ExpenseCategoryId { get; set; }
+    [Table("ExpenseCategories")]
+    public class ExpenseCategory
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ExpenseCategoryId { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-    public string Description { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Description { get; set; }
 
-    public bool IsActive { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-    // Navigation Property
-    // One Expense Category can have many Expenses
-    public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
+        public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
+    }
 }

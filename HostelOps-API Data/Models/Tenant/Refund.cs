@@ -1,29 +1,32 @@
-namespace HostelOps_API_Data.Models.Tenant;
+using HostelOps_API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Refund
+namespace HostelOps_API.Models
 {
-    // =========================
-    // Primary Key (PK)
-    // =========================
-    public long RefundId { get; set; }
+    [Table("Refunds")]
+    public class Refund
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long RefundId { get; set; }
 
-    // =========================
-    // Foreign Key (FK)
-    // Refers Payments.PaymentId
-    // =========================
-    public long PaymentId { get; set; }
+        [Required]
+        public long PaymentId { get; set; }
 
-    public DateOnly RefundDate { get; set; }
+        [Required]
+        public DateOnly RefundDate { get; set; }
 
-    public decimal Amount { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Amount { get; set; }
 
-    public string Reason { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? Reason { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+        [Required]
+        public RefundStatus Status { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-
-    // Navigation Property
-
-    public Payment Payment { get; set; } = null!;
+        [ForeignKey("PaymentId")]
+        public Payment Payment { get; set; } = null!;
+    }
 }
