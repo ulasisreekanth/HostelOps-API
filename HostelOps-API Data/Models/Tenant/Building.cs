@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HostelOps_API.Models
 {
-    [Table("Buildings")]
     public class Building
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BuildingId { get; set; }
 
         [Required]

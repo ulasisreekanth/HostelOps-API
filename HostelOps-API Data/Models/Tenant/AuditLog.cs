@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HostelOps_API.Models
 {
-    [Table("AuditLogs")]
     public class AuditLog
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long AuditLogId { get; set; }
 
 

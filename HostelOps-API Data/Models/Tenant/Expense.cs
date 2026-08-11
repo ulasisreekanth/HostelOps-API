@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HostelOps_API.Models
 {
-    [Table("Expenses")]
     public class Expense
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ExpenseId { get; set; }
 
         public int? ExpenseCategoryId { get; set; }
