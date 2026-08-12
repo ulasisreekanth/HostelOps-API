@@ -7,7 +7,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         // Primary key for the AuditLog entity.
-        public long AuditLogId { get; set; }
+        public Guid AuditLogId { get; set; }
 
 
         [Required]
