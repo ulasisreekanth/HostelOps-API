@@ -4,45 +4,59 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HostelOps_API.Models
 {
-    public class Notification
-    {
-        [Key]
-        //Primary key for the Notification entity, uniquely identifying each notification.
-        public Guid NotificationId { get; set; }
+public class Notification
+{
+    /// <summary>
+    /// Primary key for the Notification entity, uniquely identifying each notification.
+    /// </summary>
+    [Key]
+    public Guid NotificationId { get; set; }
 
-        [Required]
-        //Foreign key referencing the associated staff member to whom this notification is related.
-        public Guid? StaffId { get; set; }
-
-
-        [Required]
-        [StringLength(200)]
-        //The title of the notification, with a maximum length of 200 characters.
-        public string Title { get; set; } = string.Empty;
+    /// <summary>
+    /// Foreign key referencing the associated staff member to whom this notification is related.
+    /// </summary>
+    [Required]
+    public Guid? StaffId { get; set; }
 
 
-        [Required]
-        [StringLength(500)]
-        //The message content of the notification, with a maximum length of 500 characters.
-        public string Message { get; set; } = string.Empty;
+    /// <summary>
+    /// The title of the notification, with a maximum length of 200 characters.
+    /// </summary>
+    [Required]
+    [StringLength(200)]
+    public string Title { get; set; } = string.Empty;
 
 
-        [Required]
-        //The type of the notification, represented by the NotificationType enum.
-        public NotificationType Type { get; set; }
+    /// <summary>
+    /// The message content of the notification, with a maximum length of 500 characters.
+    /// </summary>
+    [Required]
+    [StringLength(500)]
+    public string Message { get; set; } = string.Empty;
 
 
-        [Required]
-        //Indicates whether the notification has been read by the recipient staff member.
-        public bool IsRead { get; set; }
+    /// <summary>
+    /// The type of the notification, represented by the NotificationType enum.
+    /// </summary>
+    [Required]
+    public NotificationType Type { get; set; }
 
 
-        public DateTime CreatedAt { get; set; }
+    /// <summary>
+    /// Indicates whether the notification has been read by the recipient staff member.
+    /// </summary>
+    [Required]
+    public bool IsRead { get; set; }
+
+
+    public DateTime CreatedAt { get; set; }
 
 
 
-        [ForeignKey("StaffId")]
-        //Navigation property to the associated Staff entity, representing the relationship between Notification and Staff.
-        public Staff? Staff { get; set; }
-    }
+    /// <summary>
+    /// Navigation property to the associated Staff entity, representing the relationship between Notification and Staff.
+    /// </summary>
+    [ForeignKey("StaffId")]
+    public Staff? Staff { get; set; }
+}
 }

@@ -4,44 +4,62 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HostelOps_API.Models
 {
-    
-    public class Bed
-    {
-        [Key]
-        // Primary key for the Bed entity.
-        public Guid BedId { get; set; }
 
-        [Required]
-        // Foreign key that identifies the room to which the bed belongs.
-        public Guid RoomId { get; set; }
+public class Bed
+{
+    /// <summary>
+    /// Primary key for the Bed entity.
+    /// </summary>
+    [Key]
+    public Guid BedId { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        // The unique number or identifier for the bed within the room, with a maximum length of 20 characters.
-        public string BedNumber { get; set; } = string.Empty;
+    /// <summary>
+    /// Foreign key that identifies the room to which the bed belongs.
+    /// </summary>
+    [Required]
+    public Guid RoomId { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        // The name or label for the bed, with a maximum length of 50 characters.
-        public string Name { get; set; } = string.Empty;
+    /// <summary>
+    /// The unique number or identifier for the bed within the room, with a maximum length of 20 characters.
+    /// </summary>
+    [Required]
+    [StringLength(10)]
+    public string BedNumber { get; set; } = string.Empty;
 
-        [Required]
-        //current status of bed, represented using the BedStatus enum (e.g., Available, Occupied, Maintenance).
-        public BedStatus Status { get; set; }
+    /// <summary>
+    /// The name or label for the bed, with a maximum length of 50 characters.
+    /// </summary>
+    [Required]
+    [StringLength(50)]
+    public string Name { get; set; } = string.Empty;
 
-        [Required]
-        // Timestamp indicating when the bed record was created.
-        public DateTime CreatedAt { get; set; }
+    /// <summary>
+    /// Current status of bed, represented using the BedStatus enum (e.g., Available, Occupied, Maintenance).
+    /// </summary>
+    [Required]
+    public BedStatus Status { get; set; }
 
-        [Required]
-        // Timestamp indicating when the bed record was last updated.
-        public DateTime UpdatedAt { get; set; }
+    /// <summary>
+    /// Timestamp indicating when the bed record was created.
+    /// </summary>
+    [Required]
+    public DateTime CreatedAt { get; set; }
 
-        [ForeignKey(nameof(RoomId))]
-        // Navigation property to the associated Room entity, representing the relationship between Bed and Room.
-        public virtual Room Room { get; set; } = null!;
-      
-        // Navigation property to the collection of StayAllocation entities associated with this Bed, representing the stay allocations for this bed.
-        public virtual ICollection<StayAllocation> StayAllocations { get; set; } = new List<StayAllocation>();
-    }
+    /// <summary>
+    /// Timestamp indicating when the bed record was last updated.
+    /// </summary>
+    [Required]
+    public DateTime UpdatedAt { get; set; }
+
+    /// <summary>
+    /// Navigation property to the associated Room entity, representing the relationship between Bed and Room.
+    /// </summary>
+    [ForeignKey(nameof(RoomId))]
+    public virtual Room Room { get; set; } = null!;
+  
+    /// <summary>
+    /// Navigation property to the collection of StayAllocation entities associated with this Bed, representing the stay allocations for this bed.
+    /// </summary>
+    public virtual ICollection<StayAllocation> StayAllocations { get; set; } = new List<StayAllocation>();
+}
 }
