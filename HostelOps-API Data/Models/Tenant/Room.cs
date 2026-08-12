@@ -8,11 +8,11 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the Room entity, uniquely identifying each room in the database.
-        public int RoomId { get; set; }
+        public Guid RoomId { get; set; }
 
         [Required]
         //Foreign key referencing the associated Floor entity, indicating which floor the room is located on.
-        public int FloorId { get; set; }
+        public Guid FloorId { get; set; }
 
         [Required]
         [StringLength(20)]

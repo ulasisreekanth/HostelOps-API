@@ -8,15 +8,15 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the Reservation entity, uniquely identifying each reservation record.
-        public int ReservationId { get; set; }
+        public Guid ReservationId { get; set; }
 
         [Required]
         //Foreign key referencing the Resident entity, indicating the resident associated with this reservation. Nullable to allow for reservations without a specific resident.
-        public int? ResidentId { get; set; }
+        public Guid? ResidentId { get; set; }
 
         [Required]
         //Foreign key referencing the Inquiry entity, indicating the inquiry associated with this reservation. Nullable to allow for reservations without a specific inquiry.
-        public int? InquiryId { get; set; }
+        public Guid? InquiryId { get; set; }
 
         [Required]
         //The start date of the reservation, indicating when the reserved stay begins.
@@ -28,11 +28,11 @@ namespace HostelOps_API.Models
 
         [Required]
         //Foreign key referencing the RoomType entity, indicating the type of room associated with this reservation.
-        public int RoomTypeId { get; set; }
+        public Guid RoomTypeId { get; set; }
 
         [Required]
         //Foreign key referencing the SharingType entity, indicating the type of sharing arrangement associated with this reservation.
-        public int SharingTypeId { get; set; }
+        public Guid SharingTypeId { get; set; }
 
         [Required]
         //The current status of the reservation, represented by the ReservationStatus enum (e.g., Pending, Confirmed, Cancelled).

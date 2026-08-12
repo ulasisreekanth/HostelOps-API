@@ -8,7 +8,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         // Primary key for the ChargeType entity.
-        public int ChargeTypeId { get; set; }
+        public Guid ChargeTypeId { get; set; }
 
         [Required]
         [StringLength(100)]

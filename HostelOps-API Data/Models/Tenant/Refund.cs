@@ -8,11 +8,11 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the Refund entity, representing the unique identifier for each refund.
-        public long RefundId { get; set; }
+        public Guid RefundId { get; set; }
 
         [Required]
         //Foreign key referencing the associated payment for which this refund is being processed.
-        public long PaymentId { get; set; }
+        public Guid PaymentId { get; set; }
 
         [Required]
         //The date on which the refund was issued, represented as a DateOnly value.

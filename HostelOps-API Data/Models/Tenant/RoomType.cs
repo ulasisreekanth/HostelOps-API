@@ -7,7 +7,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Unique identifier for the RoomType entity, serving as the primary key in the database.
-        public int RoomTypeId { get; set; }
+        public Guid RoomTypeId { get; set; }
 
         [Required]
         [StringLength(100)]

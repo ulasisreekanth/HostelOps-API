@@ -7,11 +7,11 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the ResidentDocument entity, uniquely identifying each document.
-        public int DocumentId { get; set; }
+        public Guid DocumentId { get; set; }
 
         [Required]
         //Foreign key referencing the associated Resident entity, indicating which resident submitted the document.
-        public int ResidentId { get; set; }
+        public Guid ResidentId { get; set; }
 
         [Required]
         [StringLength(100)]

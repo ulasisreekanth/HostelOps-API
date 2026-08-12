@@ -12,7 +12,7 @@ namespace HostelOps_API.Models
 
         [Required]
         //Foreign key that identifies the user who performed the action being logged.
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
 
         [Required]

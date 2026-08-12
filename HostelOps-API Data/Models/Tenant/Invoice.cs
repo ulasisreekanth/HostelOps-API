@@ -8,11 +8,11 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Unique identifier for the invoice, serving as the primary key in the database.
-        public long InvoiceId { get; set; }
+        public Guid InvoiceId { get; set; }
 
         [Required]
         //Foreign key referencing the associated resident for whom the invoice is generated.
-        public int ResidentId { get; set; }
+        public Guid ResidentId { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -49,7 +49,7 @@ namespace HostelOps_API.Models
         
         //  Navigation property to the collection of associated InvoiceItem entities, representing the items included in the invoice.
         public ICollection<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
-        
+
         //  Navigation property to the collection of associated Payment entities, representing the payments made towards the invoice.
         public ICollection<Payment> Payments { get; set; } = new List<Payment>();
     }

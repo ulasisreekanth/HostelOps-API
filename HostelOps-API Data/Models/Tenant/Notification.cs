@@ -8,11 +8,11 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the Notification entity, uniquely identifying each notification.
-        public long NotificationId { get; set; }
+        public Guid NotificationId { get; set; }
 
         [Required]
         //Foreign key referencing the associated staff member to whom this notification is related.
-        public int? StaffId { get; set; }
+        public Guid? StaffId { get; set; }
 
 
         [Required]

@@ -7,15 +7,15 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the InvoiceItem entity, uniquely identifying each invoice item.
-        public long InvoiceItemId { get; set; }
+        public Guid InvoiceItemId { get; set; }
 
         [Required]
         //Foreign key referencing the associated invoice to which this item belongs.
-        public long InvoiceId { get; set; }
+        public Guid InvoiceId { get; set; }
 
         [Required]
         //Foreign key referencing the associated charge type for this invoice item.
-        public int ChargeTypeId { get; set; }
+        public Guid ChargeTypeId { get; set; }
 
         [Required]
         [StringLength(200)]

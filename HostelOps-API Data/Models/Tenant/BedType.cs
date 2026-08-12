@@ -7,7 +7,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         // Primary key for the BedType entity.
-        public int BedTypeId { get; set; }
+        public Guid BedTypeId { get; set; }
 
         [Required]
         [StringLength(100)]

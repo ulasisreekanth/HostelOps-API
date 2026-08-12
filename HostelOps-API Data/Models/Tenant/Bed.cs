@@ -9,11 +9,11 @@ namespace HostelOps_API.Models
     {
         [Key]
         // Primary key for the Bed entity.
-        public int BedId { get; set; }
+        public Guid BedId { get; set; }
 
         [Required]
         // Foreign key that identifies the room to which the bed belongs.
-        public int RoomId { get; set; }
+        public Guid RoomId { get; set; }
 
         [Required]
         [StringLength(10)]

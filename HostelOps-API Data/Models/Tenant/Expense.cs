@@ -7,14 +7,14 @@ namespace HostelOps_API.Models
     {
         [Key]
         //primary key for the Expense entity.
-        public long ExpenseId { get; set; }
+        public Guid ExpenseId { get; set; }
         
         [Required]
         //Foreign key referencing the ExpenseCategory entity, indicating the category of the expense.
-        public int? ExpenseCategoryId { get; set; }
+        public Guid? ExpenseCategoryId { get; set; }
         
         //Foreign key referencing the Vendor entity, indicating the vendor associated with the expense.
-        public int? VendorId { get; set; }
+        public Guid? VendorId { get; set; }
 
         [Required]
         //The date when the expense was incurred.
@@ -32,7 +32,7 @@ namespace HostelOps_API.Models
 
         [Required]
         //Foreign key referencing the PaymentMethod entity, indicating the method of payment used for the expense.
-        public int PaymentMethodId { get; set; }
+        public Guid PaymentMethodId { get; set; }
 
         [StringLength(100)]
         //An optional reference number associated with the expense, with a maximum length of 100 characters.

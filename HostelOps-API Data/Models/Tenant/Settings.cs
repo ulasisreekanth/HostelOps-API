@@ -7,7 +7,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //primary key for the Setting entity, uniquely identifying each setting record in the database.
-        public int SettingId { get; set; }
+        public Guid SettingId { get; set; }
 
 
         [Required]

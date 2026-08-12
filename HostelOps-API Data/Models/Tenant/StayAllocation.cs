@@ -8,18 +8,18 @@ namespace HostelOps_API.Models
     {
         [Key]
         //primary key for the StayAllocation entity, representing the unique identifier for each stay allocation record. This property is of type integer and is required for identifying individual stay allocations in the system.
-        public int AllocationId { get; set; }
+        public Guid AllocationId { get; set; }
 
         //foreign key referencing the Reservation entity, representing the reservation associated with this stay allocation. This property is of type integer and is optional, allowing for cases where a stay allocation may not be linked to a specific reservation.
-        public int? ReservationId { get; set; }
+        public Guid? ReservationId { get; set; }
 
         [Required]
         //foreign key referencing the Resident entity, representing the resident associated with this stay allocation. This property is of type integer and is required for linking the stay allocation to a specific resident in the system.
-        public int ResidentId { get; set; }
+        public Guid ResidentId { get; set; }
 
         [Required]
         //foreign key referencing the Bed entity, representing the bed assigned to this stay allocation. This property is of type integer and is required for linking the stay allocation to a specific bed in the system.
-        public int BedId { get; set; }
+        public Guid BedId { get; set; }
 
         [Required]
         //foreign key referencing the RentPlan entity, representing the rent plan associated with this stay allocation. This property is of type integer and is required for linking the stay allocation to a specific rent plan in the system.
@@ -30,7 +30,7 @@ namespace HostelOps_API.Models
 
         [Required]
         //foreign key referencing the RentPlan entity, representing the rent plan associated with this stay allocation. This property is of type integer and is required for linking the stay allocation to a specific rent plan in the system.
-        public int RentPlanId { get; set; }
+        public Guid RentPlanId { get; set; }
 
         [Required]
         //The current status of the stay allocation, represented by the StayAllocationStatus enum. This property is required and indicates whether the stay allocation is active, completed, or cancelled.

@@ -8,12 +8,12 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the Staff entity, uniquely identifying each staff member record in the database.
-        public int StaffId { get; set; }
+        public Guid StaffId { get; set; }
 
 
         [Required]
         //Foreign key referencing the StaffRole entity, indicating the role assigned to the staff member. This property is required and cannot be null.
-        public int StaffRoleId { get; set; }
+        public Guid StaffRoleId { get; set; }
 
 
         [Required]

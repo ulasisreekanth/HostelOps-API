@@ -8,7 +8,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the PaymentMethod entity, representing the unique identifier for each payment method.
-        public int PaymentMethodId { get; set; }
+        public Guid PaymentMethodId { get; set; }
 
         [Required]
         [StringLength(100)]

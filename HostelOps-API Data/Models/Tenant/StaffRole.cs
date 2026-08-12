@@ -7,7 +7,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //The unique identifier for the staff role, represented as an integer. This property serves as the primary key for the StaffRole entity.
-        public int StaffRoleId { get; set; }
+        public Guid StaffRoleId { get; set; }
 
         [Required]
         [StringLength(100)]

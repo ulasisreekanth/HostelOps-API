@@ -8,11 +8,11 @@ namespace HostelOps_API.Models
     {
         [Key]
         // Primary key for the Building entity.
-        public int BuildingId { get; set; }
+        public Guid BuildingId { get; set; }
 
         [Required]
         // Foreign key referencing the associated Hostel entity.
-        public int HostelId { get; set; }
+        public Guid HostelId { get; set; }
 
         [Required]
         [StringLength(100)]

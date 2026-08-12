@@ -8,7 +8,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the Hostel entity, uniquely identifying each hostel.
-        public int HostelId { get; set; }
+        public Guid HostelId { get; set; }
 
         [Required]
         [StringLength(150)]

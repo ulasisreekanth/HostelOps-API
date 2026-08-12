@@ -7,7 +7,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the Vendor entity, representing the unique identifier for each vendor in the system. This property is of type integer and is required for identifying individual vendors.
-        public int VendorId { get; set; }
+        public Guid VendorId { get; set; }
 
         [Required]
         [StringLength(150)]

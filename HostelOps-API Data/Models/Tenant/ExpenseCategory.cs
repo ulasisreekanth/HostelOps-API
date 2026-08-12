@@ -7,7 +7,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the ExpenseCategory entity, uniquely identifying each expense category.
-        public int ExpenseCategoryId { get; set; }
+        public Guid ExpenseCategoryId { get; set; }
 
         [Required]
         [StringLength(100)]

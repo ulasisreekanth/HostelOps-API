@@ -8,7 +8,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the RentPlan entity, representing the unique identifier for each rent plan.
-        public int RentPlanId { get; set; }
+        public Guid RentPlanId { get; set; }
 
         [Required]
         [StringLength(100)]

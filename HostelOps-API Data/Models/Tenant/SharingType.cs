@@ -7,7 +7,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the SharingType entity, uniquely identifying each sharing type record in the database.
-        public int SharingTypeId { get; set; }
+        public Guid SharingTypeId { get; set; }
 
         [Required]
         [StringLength(100)]

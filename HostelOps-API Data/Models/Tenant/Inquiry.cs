@@ -8,7 +8,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //primary key for the Inquiry entity, uniquely identifying each inquiry record.
-        public int InquiryId { get; set; }
+        public Guid InquiryId { get; set; }
 
         [Required]
         [StringLength(150)]
@@ -36,11 +36,11 @@ namespace HostelOps_API.Models
 
         [Required]
         //The ID of the sharing type associated with the inquiry, serving as a foreign key to the SharingType entity.
-        public int SharingTypeId { get; set; }
+        public Guid SharingTypeId { get; set; }
 
         [Required]
         //The ID of the room type associated with the inquiry, serving as a foreign key to the RoomType entity.
-        public int RoomTypeId { get; set; }
+        public Guid RoomTypeId { get; set; }
 
         [StringLength(500)]
         //  Optional message or additional information provided by the person making the inquiry, with a maximum length of 500 characters.

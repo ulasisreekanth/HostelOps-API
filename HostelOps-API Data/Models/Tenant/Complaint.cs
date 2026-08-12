@@ -8,15 +8,15 @@ namespace HostelOps_API.Models
     {
         [Key]
         // Primary key for the Complaint entity.
-        public int ComplaintId { get; set; }
+        public Guid ComplaintId { get; set; }
 
         [Required]
         // Foreign key referencing the associated Hostel entity.
-        public int? ResidentId { get; set; }
+        public Guid? ResidentId { get; set; }
 
         [Required]
         // Foreign key referencing the associated Staff entity (if applicable).
-        public int? StaffId { get; set; }
+        public Guid? StaffId { get; set; }
 
 
         [Required]

@@ -8,7 +8,7 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the Resident entity, representing the unique identifier for each resident.
-        public int ResidentId { get; set; }
+        public Guid ResidentId { get; set; }
 
         [Required]
         [StringLength(150)]

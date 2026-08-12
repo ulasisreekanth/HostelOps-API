@@ -8,11 +8,11 @@ namespace HostelOps_API.Models
     {
         [Key]
         //Primary key for the Payment entity, uniquely identifying each payment.
-        public long PaymentId { get; set; }
+        public Guid PaymentId { get; set; }
 
         [Required]
         //Foreign key referencing the associated invoice for which this payment is made.
-        public long InvoiceId { get; set; }
+        public Guid InvoiceId { get; set; }
 
         [Required]
         //The date on which the payment was made, represented as a DateOnly value.
@@ -24,7 +24,7 @@ namespace HostelOps_API.Models
 
         [Required]
         //Foreign key referencing the payment method used for this payment.
-        public int PaymentMethodId { get; set; }
+        public Guid PaymentMethodId { get; set; }
 
         [StringLength(100)]
         //The transaction identifier associated with the payment, with a maximum length of 100 characters.
