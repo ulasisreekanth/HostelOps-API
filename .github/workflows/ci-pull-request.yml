@@ -11,15 +11,15 @@ concurrency:
   group: ci-pr-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+  issues: write
+
 jobs:
-  # ──────────────────────────────────────────────
-  #  Build & Unit Tests
-  # ──────────────────────────────────────────────
-  # Build enforces .editorconfig naming rules and BannedApiAnalyzers (logging.md).
-  # Unit tests include architecture, naming, and logging xUnit tests — the same
-  # tests a developer runs with `dotnet test`.
-  unit-tests:
-    name: Build & Unit Tests
+  build:
+    name: Build
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -30,6 +30,27 @@ jobs:
       - name: Validate Instructions
         shell: pwsh
         run: ./.github/scripts/validate-instructions.ps1
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build (Release)
+        run: dotnet build --no-restore --configuration Release
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
@@ -68,14 +89,11 @@ jobs:
           path: TestResults/Unit/**/coverage.cobertura.xml
           retention-days: 7
 
-  # ──────────────────────────────────────────────
-  #  Integration Tests
-  # ──────────────────────────────────────────────
   integration-tests:
     name: Integration Tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    needs: unit-tests          # only run if unit tests pass
+    needs: build
 
     steps:
       - name: Checkout code
@@ -120,9 +138,6 @@ jobs:
           path: TestResults/Integration/**/coverage.cobertura.xml
           retention-days: 7
 
-  # ──────────────────────────────────────────────
-  #  Coverage Summary (optional gate)
-  # ──────────────────────────────────────────────
   coverage-report:
     name: Coverage Report
     runs-on: ubuntu-latest
@@ -152,7 +167,7 @@ jobs:
           hide_complexity: false
           indicators: true
           output: both
-          thresholds: '60 80'   # warn at <60%, fail at <80%
+          thresholds: '60 80'
 
       - name: Add Coverage to PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
