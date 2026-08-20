@@ -15,6 +15,9 @@ jobs:
   # ──────────────────────────────────────────────
   #  Build & Unit Tests
   # ──────────────────────────────────────────────
+  # Build enforces .editorconfig naming rules and BannedApiAnalyzers (logging.md).
+  # Unit tests include architecture, naming, and logging xUnit tests — the same
+  # tests a developer runs with `dotnet test`.
   unit-tests:
     name: Build & Unit Tests
     runs-on: ubuntu-latest
@@ -23,6 +26,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Validate Instructions
+        shell: pwsh
+        run: ./.github/scripts/validate-instructions.ps1
 
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v4

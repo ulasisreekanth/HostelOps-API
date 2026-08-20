@@ -28,6 +28,12 @@ Summarized from existing AIMunshi PR / branch standards.
 
 ### PR Templates
 
+Templates live in `.github/PullRequestTemplates/`:
+
+- `feature.md`
+- `bug.md`
+- `hotfix.md`
+
 #### Feature
 - **What** / **Why** (ticket/user story)
 - **Changes** (by file path)

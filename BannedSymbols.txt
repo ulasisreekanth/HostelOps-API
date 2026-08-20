@@ -1,0 +1,5 @@
+T:System.Console; Use Microsoft.Extensions.Logging.ILogger instead of Console (logging.md).
+M:System.Diagnostics.Debug.WriteLine(System.String); Use Microsoft.Extensions.Logging.ILogger instead of Debug.WriteLine (logging.md).
+M:System.Diagnostics.Debug.WriteLine(System.String,System.String); Use Microsoft.Extensions.Logging.ILogger instead of Debug.WriteLine (logging.md).
+M:System.Diagnostics.Trace.WriteLine(System.String); Use Microsoft.Extensions.Logging.ILogger instead of Trace.WriteLine (logging.md).
+M:System.Diagnostics.Trace.WriteLine(System.Object); Use Microsoft.Extensions.Logging.ILogger instead of Trace.WriteLine (logging.md).
